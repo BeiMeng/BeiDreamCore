@@ -4,6 +4,7 @@ using System;
 using System.Collections.Generic;
 using System.Text;
 using Xunit;
+using Autofac;
 
 namespace BeiDreamCore.Util.Tests.Dependency
 {
@@ -48,11 +49,11 @@ namespace BeiDreamCore.Util.Tests.Dependency
             LocalIocManager.Register<TestClassObject>(DependencyLifeStyle.Scoped);
             using (var scope = LocalIocManager.IocContainer.BeginLifetimeScope())
             {
-                c = LocalIocManager.Resolve<TestClassObject>();
+                c = scope.Resolve<TestClassObject>();
             }
             using (var scope = LocalIocManager.IocContainer.BeginLifetimeScope())
             {
-                d = LocalIocManager.Resolve<TestClassObject>();
+                d = scope.Resolve<TestClassObject>();
             }
             c.ShouldNotBeSameAs(d);
         }
@@ -60,5 +61,10 @@ namespace BeiDreamCore.Util.Tests.Dependency
     }
     public class TestClassObject
     {
+        public static int number=2;
+        public TestClassObject()
+        {
+            number++;
+        }
     }
 }

@@ -40,7 +40,7 @@ namespace BeiDreamCore.Dependency
             switch (lifeStyle)
             {
                 case DependencyLifeStyle.Scoped:
-                    return registration.AsImplementedInterfaces();
+                    return registration.InstancePerLifetimeScope();
                 case DependencyLifeStyle.Singleton:
                     return registration.SingleInstance();
                 default:
